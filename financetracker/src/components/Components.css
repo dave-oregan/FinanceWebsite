@@ -3,6 +3,16 @@
     src: url(../fonts/Montserrat-VariableFont_wght.ttf);
 }
 
+/*  _________________
+    | Color Palette |
+    |---------------|
+    |    #FFFBF5    |
+    |    #F7EFE5    |
+    |    #C3ACD0    |
+    |    #7743DB    |
+    |---------------|
+*/
+
 body {
     font-family: 'Montserrat';
 }
@@ -49,6 +59,65 @@ input[type=number] {
 }
 
 #newButton:hover {
+    cursor: pointer;
+    transition-duration: 250ms;
+    opacity: .9;
+}
+
+#popupholder {
+    z-index: 30;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#popupbacker {
+    z-index: 35;
+    position: fixed;
+    min-height: 100vh;
+    width: 100%;
+    height: inherit;
+    background-color: #b4b4b4;
+    opacity: .3;
+}
+
+#popup {
+    z-index: 50;
+    position: fixed;
+    margin: auto;
+    background-color: #F7EFE5;
+    opacity: 1;
+    width: 60%;
+    height: fit-content;
+    padding: 2em;
+    border-radius: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.Button {
+    background-color: #C3ACD0;
+    opacity: .5;
+    width: 100%;
+    padding: .7em;
+    margin-top: 1em;
+    margin-bottom: .3em;
+    border-radius: 2em;
+    text-align: center;
+    border-style: ridge;
+    border-color: #7743DB;
+    font-weight: 1000;
+    color: #7743DB;
+    user-select: none;
+    -webkit-user-select: none;       
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.Button:hover {
     cursor: pointer;
     transition-duration: 250ms;
     opacity: .9;

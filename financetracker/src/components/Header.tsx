@@ -3,7 +3,7 @@ import './Components.css'
 
 const Header = () => {
     return (
-        <span id='title'>Finance Tracker</span>
+        <span id='title'>Monthly Finance Calculator</span>
     )
 }
 
