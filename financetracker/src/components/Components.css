@@ -36,9 +36,15 @@ input[type=number] {
 
 #title {
     font-size: 2.4em;
-    font-weight: bold;
+    font-weight: 900;
     margin-left: auto;
     margin-right: auto;
+}
+
+#MiscHolder {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3em;
 }
 
 #newButton {
@@ -96,6 +102,44 @@ input[type=number] {
     border-radius: 2em;
     display: flex;
     flex-direction: column;
+}
+
+.subtitle {
+    font-size: 1.7em;
+    font-weight: 800;
+    margin-right: auto;
+    margin-bottom: -.25em;
+}
+
+.misc_label {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+}
+
+.deleteBTN {
+    background-color: #C3ACD0;
+    opacity: .5;
+    padding: .2em;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: .6em;
+    text-align: center;
+    border-style: ridge;
+    border-color: #7743DB;
+    font-weight: 1000;
+    color: #7743DB;
+    user-select: none;
+    margin-left: auto;
+    -webkit-user-select: none;       
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.deleteBTN:hover {
+    cursor: pointer;
+    transition-duration: 250ms;
+    opacity: .9;
 }
 
 .Button {
