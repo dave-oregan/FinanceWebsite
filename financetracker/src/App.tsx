@@ -16,12 +16,14 @@ var counter = 0
 const initialCategories = ['National Tax', 'Province/State Tax', 'Local Tax', '401K Contribution', 'IRA Contribution', 'Health Insurance', 'Social Security', 'Housing', 'Transport', 'Utility', 'Food', 'Toiletry', 'Internet', 'Phone', 'Free Spending', 'Investment', 'Savings', 'Extra Money']
 
 const App: React.FC = () => {
+  // dynamic variables
   const [data, setData] = useState<number[]>([])
   const [categories, setCategories] = useState<string[]>(initialCategories)
   const [colours, setColours] = useState<string[]>(COLOURS)
   const [salary, setSalary] = useState<number[]>([])
 
   const updateData = () => {
+    // initialize variables and makes sure none are null
     const newData: number[] = []
     const newColours = [...COLOURS]
     var newSalary = [+(document.getElementById('salary') as HTMLInputElement).value, +(document.getElementById('salary') as HTMLInputElement).value]
@@ -34,11 +36,12 @@ const App: React.FC = () => {
     var deductionTax = +(document.getElementById('deduction_tax') as HTMLInputElement).value
     if (deductionTax === 0) { deductionTax = 0 }
 
+    // Iterate through input boxes
     Array.from(document.getElementsByClassName('Input') as HTMLCollectionOf<HTMLInputElement>).forEach(element => {
       console.log(element)
-      if (element.id !== 'salary') {
-        if (element.id.includes('_tax')) {
-          if (element.id !== 'deduction_tax') {
+      if (element.id !== 'salary') { // filter out salary category
+        if (element.id.includes('_tax')) { // taxes
+          if (element.id !== 'deduction_tax') { // filter out deductions
             var tax = ((+element.value)/100)*(newSalary[0]-deduction401k-deductionTax)
             if (deduction401k <= 0 && deductionIRA > 0) {
               tax = ((+element.value)/100)*(newSalary[0]-(deductionIRA*fedTaxRate)-deductionTax)
@@ -47,26 +50,28 @@ const App: React.FC = () => {
             newSalary[1] -= tax
           }
         }
-        else if (element.id === 'socsecurity') {
+        else if (element.id === 'socsecurity') { // social security
           var socsec = ((+element.value)/100)*newSalary[0]
           newData.push(socsec)
           newSalary[1] -= socsec
         }
-        else {
+        else { // normal inputs
           newData.push(+element.value)
           newSalary[1] -= (+element.value)
         }
       }
-      if (element.id.includes('miscbox')) {
+      if (element.id.includes('miscbox')) { // adds extra grey colour
         newColours.push('#ABABAB')
       }
     })
 
+    // Display extra money
     newData.push(newSalary[1])
     newColours.push('#32A852')
 
     console.log(categories)
 
+    // Set variables
     setSalary(newSalary)
     setData(newData)
     setColours(newColours)
@@ -78,7 +83,6 @@ const App: React.FC = () => {
     (document.getElementById('tax_yn') as HTMLSelectElement).addEventListener('change', () => {
       const value = (document.getElementById('tax_yn') as HTMLSelectElement).value
       const taxBoxes = document.querySelectorAll('.taxboxes') as NodeListOf<HTMLElement>
-
       taxBoxes.forEach((taxBox: HTMLElement) => {
         if (value === 'Yes') {
           taxBox.style.display = 'block'
