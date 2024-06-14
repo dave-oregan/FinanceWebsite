@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
 import Credit from './components/Credit'
 import Header from './components/Header'
@@ -9,9 +9,69 @@ import DisplayBox from './components/DisplayBox'
 import NewBox from './components/NewBox'
 import PopUp from './components/PopUp'
 
+const COLOURS = [ '#C34A3C', '#CF6D62', '#DB938B', '#8D3CC3', '#B17AD6', '#3CB5C3', '#7ACDD6', '#72C33C', '#C53A93', '#4062BF', '#FF8B12', '#FBCC2E', '#3BC43C', '#CA35A2', '#4C6AD0', '#ED821C', '#FBC804' ]
+
 var counter = 0
 
+const initialCategories = ['National Tax', 'Province/State Tax', 'Local Tax', '401K Contribution', 'IRA Contribution', 'Health Insurance', 'Social Security', 'Housing', 'Transport', 'Utility', 'Food', 'Toiletry', 'Internet', 'Phone', 'Free Spending', 'Investment', 'Savings', 'Extra Money']
+
 const App: React.FC = () => {
+  const [data, setData] = useState<number[]>([])
+  const [categories, setCategories] = useState<string[]>(initialCategories)
+  const [colours, setColours] = useState<string[]>(COLOURS)
+  const [salary, setSalary] = useState<number[]>([])
+
+  const updateData = () => {
+    const newData: number[] = []
+    const newColours = [...COLOURS]
+    var newSalary = [+(document.getElementById('salary') as HTMLInputElement).value, +(document.getElementById('salary') as HTMLInputElement).value]
+    var deduction401k = +(document.getElementById('retirement') as HTMLInputElement).value
+    if (deduction401k === 0) { deduction401k = 0 }
+    var deductionIRA = +(document.getElementById('retirement_ira') as HTMLInputElement).value
+    if (deductionIRA === 0) { deductionIRA = 0 }
+    var fedTaxRate = (+(document.getElementById('nation_tax') as HTMLInputElement).value)/100
+    if (fedTaxRate === 0) { fedTaxRate = 0 }
+    var deductionTax = +(document.getElementById('deduction_tax') as HTMLInputElement).value
+    if (deductionTax === 0) { deductionTax = 0 }
+
+    Array.from(document.getElementsByClassName('Input') as HTMLCollectionOf<HTMLInputElement>).forEach(element => {
+      console.log(element)
+      if (element.id !== 'salary') {
+        if (element.id.includes('_tax')) {
+          if (element.id !== 'deduction_tax') {
+            var tax = ((+element.value)/100)*(newSalary[0]-deduction401k-deductionTax)
+            if (deduction401k <= 0 && deductionIRA > 0) {
+              tax = ((+element.value)/100)*(newSalary[0]-(deductionIRA*fedTaxRate)-deductionTax)
+            }
+            newData.push(tax)
+            newSalary[1] -= tax
+          }
+        }
+        else if (element.id === 'socsecurity') {
+          var socsec = ((+element.value)/100)*newSalary[0]
+          newData.push(socsec)
+          newSalary[1] -= socsec
+        }
+        else {
+          newData.push(+element.value)
+          newSalary[1] -= (+element.value)
+        }
+      }
+      if (element.id.includes('miscbox')) {
+        newColours.push('#ABABAB')
+      }
+    })
+
+    newData.push(newSalary[1])
+    newColours.push('#32A852')
+
+    console.log(categories)
+
+    setSalary(newSalary)
+    setData(newData)
+    setColours(newColours)
+  }
+
   useEffect(() => { // Calls after elements load
     (document.getElementById('popupholder') as HTMLSelectElement).style.display = 'none';
     // Toggles tax sections on or off based on user input
@@ -57,11 +117,19 @@ const App: React.FC = () => {
               <span class='deleteBTN' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)'>X</span>
             </div>
             <input id='miscbox${counter}' class='Input' type='number' step='.0001'></input>`
+          generatedbox.addEventListener('change', () => { updateData() })
         container.appendChild(generatedbox)
+        categories.pop()
+        categories.push(input)
+        categories.push('Extra Money')
       }
       (document.getElementById('NewPopUp') as HTMLInputElement).value = '';
       (document.getElementById('popupholder') as HTMLSelectElement).style.display = 'none'
     });
+
+    Array.from(document.getElementsByClassName('Input') as HTMLCollectionOf<HTMLInputElement>).forEach(element => {
+      element.addEventListener('change', () => { updateData() })
+    })
   }, [])
 
   // Adds all the elements to the webstite
@@ -75,6 +143,7 @@ const App: React.FC = () => {
         <EntryBox id='nation_tax' parent_class='taxboxes' label='Please Enter National Tax:' type='number' />
         <EntryBox id='province_tax' parent_class='taxboxes' label='Please Enter Province/State Tax:' type='number' />
         <EntryBox id='local_tax' parent_class='taxboxes' label='Please Enter Local Tax:' type='number' />
+        <EntryBox id='deduction_tax' parent_class='taxboxes' label='Please Enter Total Tax Deduction:' type='number' />
         <SubHeader text='Retirement & Health' />
         <EntryBox id='retirement' parent_class='' label='Please Enter 401K Contribution:' type='number' />
         <EntryBox id='retirement_ira' parent_class='' label='Please Enter IRA Contribution:' type='number' />
@@ -98,7 +167,7 @@ const App: React.FC = () => {
         <NewBox />
         </div>
         <SubHeader text='Monthly Finance Report' />
-        <DisplayBox label={'display'} />
+        <DisplayBox label='Financial Breakdown' datapoints={data} datalabels={categories} datacolours={colours} />
         <div className='CreditBox'>
           <Credit content='Background from ' link='https://www.freepik.com/free-photo/white-paper-texture_1034616.htm' name='Freepik' align='L'/>
           <Credit content='Created by ' link='https://horizonzz.com' name="David O'Regan" align='R'/>
