@@ -126,6 +126,7 @@ const App: React.FC = () => {
             <input id='miscbox${counter}' class='Input' type='number' step='.0001' onfocus='this.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })'></input>`
           generatedbox.addEventListener('change', () => { updateData() })
         container.appendChild(generatedbox);
+        // Updates display on delete
         (document.getElementById(`delete${counter}`) as HTMLElement).addEventListener('click', (element) => {
           const index = categories.indexOf(input)
           categories.splice(index, 1)
@@ -140,6 +141,7 @@ const App: React.FC = () => {
       (document.getElementById('popupholder') as HTMLSelectElement).style.display = 'none'
     });
 
+    // Adds event listener to update report dynamically
     Array.from(document.getElementsByClassName('Input') as HTMLCollectionOf<HTMLInputElement>).forEach(element => {
       element.addEventListener('change', () => { updateData() })
     })

@@ -15,7 +15,7 @@ const EntryBox: React.FC<EntryBoxProps> = ({id, parent_class, label, type}) => {
             <input
                 id={id}
                 className='Input'
-                type={type}
+                type={type} // Allows for characters to be limited
                 step='.01'
                 onFocus={(e) => e.target.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })} // Prevents scroll step                
             />
