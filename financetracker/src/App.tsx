@@ -14,13 +14,14 @@ const COLOURS = [ '#C34A3C', '#CF6D62', '#DB938B', '#8D3CC3', '#B17AD6', '#3CB5C
 var counter = 0
 
 const initialCategories = ['National Tax', 'Province/State Tax', 'Local Tax', '401K Contribution', 'IRA Contribution', 'Health Insurance', 'Social Security', 'Housing', 'Transport', 'Utility', 'Food', 'Toiletry', 'Internet', 'Phone', 'Free Spending', 'Investment', 'Savings', 'Extra Money']
+const initialData = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 const App: React.FC = () => {
   // dynamic variables
-  const [data, setData] = useState<number[]>([])
+  const [data, setData] = useState<number[]>(initialData)
   const [categories, setCategories] = useState<string[]>(initialCategories)
   const [colours, setColours] = useState<string[]>(COLOURS)
-  const [salary, setSalary] = useState<number[]>([])
+  const [salary, setSalary] = useState<number[]>([0, 0])
 
   const updateData = () => {
     // initialize variables and makes sure none are null
@@ -87,6 +88,8 @@ const App: React.FC = () => {
         if (value === 'Yes') {
           taxBox.style.display = 'block'
         } else {
+          (taxBox.lastChild as HTMLInputElement).value = ''
+          updateData()
           taxBox.style.display = 'none'
         }
       })
@@ -118,11 +121,17 @@ const App: React.FC = () => {
           generatedbox.innerHTML = `
             <div class='misc_label'>
               <span>${input}</span>
-              <span class='deleteBTN' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)'>X</span>
+              <span id='delete${counter}' class='deleteBTN' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)'>X</span>
             </div>
-            <input id='miscbox${counter}' class='Input' type='number' step='.0001'></input>`
+            <input id='miscbox${counter}' class='Input' type='number' step='.0001' onfocus='this.addEventListener("wheel", function (e) { e.preventDefault() }, { passive: false })'></input>`
           generatedbox.addEventListener('change', () => { updateData() })
-        container.appendChild(generatedbox)
+        container.appendChild(generatedbox);
+        (document.getElementById(`delete${counter}`) as HTMLElement).addEventListener('click', (element) => {
+          const index = categories.indexOf(input)
+          categories.splice(index, 1)
+          updateData()
+        })
+
         categories.pop()
         categories.push(input)
         categories.push('Extra Money')
@@ -171,7 +180,7 @@ const App: React.FC = () => {
         <NewBox />
         </div>
         <SubHeader text='Monthly Finance Report' />
-        <DisplayBox label='Financial Breakdown' datapoints={data} datalabels={categories} datacolours={colours} />
+        <DisplayBox label='Financial Breakdown' datapoints={data} datalabels={categories} datacolours={colours} datasalary={salary} />
         <div className='CreditBox'>
           <Credit content='Background from ' link='https://www.freepik.com/free-photo/white-paper-texture_1034616.htm' name='Freepik' align='L'/>
           <Credit content='Created by ' link='https://horizonzz.com' name="David O'Regan" align='R'/>

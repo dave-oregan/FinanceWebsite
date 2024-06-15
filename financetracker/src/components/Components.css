@@ -70,6 +70,38 @@ input[type=number] {
     opacity: .9;
 }
 
+#nation_tax {
+    background-position: calc(100% - 1.02em) center;
+    padding-right: 3em;
+    background-image: url(../images/percent.png);
+    background-size: 1.3em;
+    background-repeat: no-repeat;
+}
+
+#province_tax {
+    background-position: calc(100% - 1.02em) center;
+    padding-right: 3em;
+    background-image: url(../images/percent.png);
+    background-size: 1.3em;
+    background-repeat: no-repeat;
+}
+
+#local_tax {
+    background-position: calc(100% - 1.02em) center;
+    padding-right: 3em;
+    background-image: url(../images/percent.png);
+    background-size: 1.3em;
+    background-repeat: no-repeat;
+}
+
+#socsecurity {
+    background-position: calc(100% - 1.02em) center;
+    padding-right: 3em;
+    background-image: url(../images/percent.png);
+    background-size: 1.3em;
+    background-repeat: no-repeat;
+}
+
 #popupholder {
     z-index: 30;
     position: absolute;
@@ -112,17 +144,55 @@ input[type=number] {
     flex-direction: row;
 }
 
-#displayholder canvas {
-    padding: 1em;
-    width: 40% !important;
-    height: auto !important;
+#canvasdisplay {
+    padding-left: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    display: flex;
+    align-items: center;
+    min-height: fit-content;
+    width: 40%;
 }
 
-#displayholder div {
+#canvasdisplay canvas {
+    padding-left: 1em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+#textdisplay {
     padding: 1em;
     padding-right: 2em;
     width: 60% !important;
     height: fit-content !important;
+}
+
+#datadisplay {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* flex-direction: column; */
+}
+
+#innerdisplayL {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+#innerdisplayR {
+    text-align: right;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.labeldisp {
+    width: 100%;
+}
+
+.pointdisp {
+    float: right;
 }
 
 .subtitle {
@@ -215,6 +285,11 @@ input[type=number] {
     font-size: 1em;
     border-style: none;
     font-family: 'Montserrat';
+    background-position: calc(100% - 1.02em) center;
+    padding-right: 3em !important;
+    background-image: url(../images/dollar.png);
+    background-size: 1.3em;
+    background-repeat: no-repeat;
 }
 
 .Input2 {
