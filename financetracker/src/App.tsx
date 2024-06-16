@@ -135,7 +135,7 @@ const App: React.FC = () => {
               <span>${input}</span>
               <span id='delete${counter}' class='deleteBTN' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)'>X</span>
             </div>
-            <input id='miscbox${counter}' class='Input' onchange='this.value = /^\\d*\\.?\\d*$/.test(this.value) ? this.value : (numerise(this.value.replace(/[^0-9.]/g, '')))' />`
+            <input id='miscbox${counter}' class='Input' onchange='this.value = /^\\d*\\.?\\d*$/.test(this.value) ? this.value : (numerise(this.value.replace(/[^0-9.]/g, "")))' />`
           generatedbox.addEventListener('change', () => { updateData() })
         container.appendChild(generatedbox);
         // Updates display on delete
