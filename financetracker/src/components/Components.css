@@ -3,6 +3,11 @@
     src: url(../fonts/Montserrat-VariableFont_wght.ttf);
 }
 
+@font-face {
+    font-family: 'Lekton';
+    src: url(../fonts/Lekton-Regular.ttf);
+}
+
 /*  _________________
     | Color Palette |
     |---------------|
@@ -72,7 +77,6 @@ input[type=number] {
 
 #nation_tax {
     background-position: calc(100% - 1.02em) center;
-    padding-right: 3em;
     background-image: url(../images/percent.png);
     background-size: 1.3em;
     background-repeat: no-repeat;
@@ -80,7 +84,6 @@ input[type=number] {
 
 #province_tax {
     background-position: calc(100% - 1.02em) center;
-    padding-right: 3em;
     background-image: url(../images/percent.png);
     background-size: 1.3em;
     background-repeat: no-repeat;
@@ -88,7 +91,6 @@ input[type=number] {
 
 #local_tax {
     background-position: calc(100% - 1.02em) center;
-    padding-right: 3em;
     background-image: url(../images/percent.png);
     background-size: 1.3em;
     background-repeat: no-repeat;
@@ -96,7 +98,6 @@ input[type=number] {
 
 #socsecurity {
     background-position: calc(100% - 1.02em) center;
-    padding-right: 3em;
     background-image: url(../images/percent.png);
     background-size: 1.3em;
     background-repeat: no-repeat;
@@ -171,20 +172,25 @@ input[type=number] {
     width: 100%;
     display: flex;
     flex-direction: row;
-    /* flex-direction: column; */
 }
 
 #innerdisplayL {
-    width: 50%;
+    min-width: fit-content;
     display: flex;
     flex-direction: column;
+    gap: .3em;
+    white-space: nowrap;
+    line-height: 1.188em;
 }
 
 #innerdisplayR {
+    margin-left: auto;
+    font-family: 'Lekton';
+    line-height: 1.188em;
     text-align: right;
-    width: 50%;
     display: flex;
     flex-direction: column;
+    gap: .3em;
 }
 
 .labeldisp {
@@ -267,9 +273,11 @@ input[type=number] {
 }
 
 .Selector {
+    background-color: #FFF;
+    border-style: none;
     width: 100%;
     border-radius: 2em;
-    padding: .5em;
+    padding: .6em;
     margin-top: .5em;
     margin-bottom: .3em;
     font-size: 1em;
@@ -290,6 +298,10 @@ input[type=number] {
     background-image: url(../images/dollar.png);
     background-size: 1.3em;
     background-repeat: no-repeat;
+}
+
+.percent {
+    background-image: url(../images/percent.png);
 }
 
 .Input2 {
