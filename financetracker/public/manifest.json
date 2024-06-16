@@ -1,6 +1,6 @@
 {
-  "short_name": "Finance Tracker",
-  "name": "Finance Tracker",
+  "short_name": "Finance Calculator",
+  "name": "Monthly Finance Calculator",
   "icons": [
     {
       "src": "favicon.ico",

@@ -12,7 +12,7 @@ import PopUp from './components/PopUp'
 const COLOURS = [ '#C34A3C', '#CF6D62', '#DB938B', '#8D3CC3', '#B17AD6', '#3CB5C3', '#7ACDD6', '#E57D10', '#FF8B12', '#FFA241', '#FFB970', '#FFD0A0', '#004080', '#326699', '#DAA520', '#FBCC2E', '#B05A87' ]
 
 var counter = 0
-var amount = true
+var amountSI = true
 
 const initialCategories = ['National Tax', 'Province/State Tax', 'Local Tax', '401K Contribution', 'IRA Contribution', 'Health Insurance', 'Social Security', 'Housing', 'Transport', 'Utility', 'Food', 'Toiletry', 'Internet', 'Phone', 'Savings', 'Investment', 'Free Spending', 'Extra Money']
 const initialData = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -40,7 +40,6 @@ const App: React.FC = () => {
 
     // Iterate through input boxes
     Array.from(document.getElementsByClassName('Input') as HTMLCollectionOf<HTMLInputElement>).forEach(element => {
-      console.log(element)
       if (element.id !== 'salary' && newSalary[0] > 0) { // filter out salary category
         if (element.id.includes('_tax')) { // taxes
           if (element.id !== 'deduction_tax') { // filter out deductions
@@ -58,11 +57,11 @@ const App: React.FC = () => {
           newSalary[1] -= socsec
         }
         else if (element.id === 'savings' || element.id === 'invest') { // Savings and Investments
-          if (amount) {
+          if (amountSI) { // As an amount
             newData.push(+parseFloat(element.value).toFixed(2))
             newSalary[1] -= (+element.value)
           }
-          else {
+          else { // As a percent
             const percent = (+(element.value)/100)*newSalary[0]
             newData.push(+percent.toFixed(2))
             newSalary[1] -= (+element.value)
@@ -82,8 +81,6 @@ const App: React.FC = () => {
     newData.push(+newSalary[1].toFixed(2))
     newColours.push('#6AA84F')
 
-    console.log(categories)
-
     // Set variables
     setSalary(newSalary)
     setData(newData)
@@ -91,7 +88,9 @@ const App: React.FC = () => {
   }
 
   useEffect(() => { // Calls after elements load
+    // Hides popup on website start
     (document.getElementById('popupholder') as HTMLSelectElement).style.display = 'none';
+    
     // Toggles tax sections on or off based on user input
     (document.getElementById('tax_yn') as HTMLSelectElement).addEventListener('change', () => {
       const value = (document.getElementById('tax_yn') as HTMLSelectElement).value
@@ -138,6 +137,7 @@ const App: React.FC = () => {
             <input id='miscbox${counter}' class='Input' onchange='this.value = /^\\d*\\.?\\d*$/.test(this.value) ? this.value : (numerise(this.value.replace(/[^0-9.]/g, "")))' />`
           generatedbox.addEventListener('change', () => { updateData() })
         container.appendChild(generatedbox);
+
         // Updates display on delete
         (document.getElementById(`delete${counter}`) as HTMLElement).addEventListener('click', (element) => {
           const index = categories.indexOf(input)
@@ -163,13 +163,14 @@ const App: React.FC = () => {
       const value = (document.getElementById('percent_yn') as HTMLSelectElement).value
       const sav_inv = document.querySelectorAll('.sav_inv') as NodeListOf<HTMLElement>
       sav_inv.forEach((input: HTMLElement) => {
+        const inputBox = input.lastChild as HTMLInputElement
         if (value === 'Amount') {
-          (input.lastChild as HTMLInputElement).classList.remove('percent')
-          amount = true
+          inputBox.classList.remove('percent')
+          amountSI = true
           updateData()
         } else {
-          (input.lastChild as HTMLInputElement).classList.add('percent')
-          amount = false
+          inputBox.classList.add('percent')
+          amountSI = false
           updateData()
         }
       })

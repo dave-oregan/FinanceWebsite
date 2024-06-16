@@ -10,7 +10,7 @@ interface CreditProps {
 
 const Credit: React.FC<CreditProps>  = ({content, link, name, align}) => {
     return (
-        <span className={`backgroundCredit${align}`}>{content}<a className='link' href={link}>{name}</a></span>
+        <span className={`credit${align}`}>{content}<a className='link' href={link}>{name}</a></span>
     )
 }
 

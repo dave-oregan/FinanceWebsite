@@ -20,6 +20,9 @@
 
 body {
     font-family: 'Montserrat';
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -255,11 +258,11 @@ html {
     opacity: .9;
 }
 
-.backgroundCreditR {
+.creditR {
     margin-left: auto;
 }
 
-.backgroundCreditL {
+.creditL {
     margin-right: auto;
 }
 
