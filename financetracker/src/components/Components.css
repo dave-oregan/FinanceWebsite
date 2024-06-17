@@ -187,6 +187,10 @@ html {
     gap: .3em;
 }
 
+#downloadbutton {
+    margin-top: 0;
+}
+
 .labeldisp {
     width: 100%;
 }

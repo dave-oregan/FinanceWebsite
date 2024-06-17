@@ -14,7 +14,7 @@
     background-color: #F7EFE5;
     border-radius: 2em;
     margin-top: 5vh;
-    margin-bottom: 5vh;
+    margin-bottom: 2.5vh;
     height: fit-content;
     padding: 2em;
     min-height: 5vh;
@@ -29,4 +29,9 @@
 .CreditBox {
     width: 100%;
     display: flex;
+}
+
+#copyright {
+    width: 100%;
+    text-align: center;
 }

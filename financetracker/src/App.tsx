@@ -8,6 +8,7 @@ import SelectBox from './components/SelectBox'
 import DisplayBox from './components/DisplayBox'
 import NewBox from './components/NewBox'
 import PopUp from './components/PopUp'
+import Download from './components/Download'
 
 const COLOURS = [ '#C34A3C', '#CF6D62', '#DB938B', '#8D3CC3', '#B17AD6', '#3CB5C3', '#7ACDD6', '#E57D10', '#FF8B12', '#FFA241', '#FFB970', '#FFD0A0', '#004080', '#326699', '#DAA520', '#FBCC2E', '#B05A87' ]
 
@@ -64,7 +65,7 @@ const App: React.FC = () => {
           else { // As a percent
             const percent = (+(element.value)/100)*newSalary[0]
             newData.push(+percent.toFixed(2))
-            newSalary[1] -= (+element.value)
+            newSalary[1] -= (+percent)
           }
         }
         else { // normal inputs
@@ -79,7 +80,12 @@ const App: React.FC = () => {
 
     // Display extra money
     newData.push(+newSalary[1].toFixed(2))
-    newColours.push('#6AA84F')
+    if (newSalary[1] < 0) {
+      newColours.push('#E65050')
+    }
+    else {
+      newColours.push('#6AA84F')
+    }
 
     // Set variables
     setSalary(newSalary)
@@ -134,9 +140,21 @@ const App: React.FC = () => {
               <span>${input}</span>
               <span id='delete${counter}' class='deleteBTN' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)'>X</span>
             </div>
-            <input id='miscbox${counter}' class='Input' onchange='this.value = /^\\d*\\.?\\d*$/.test(this.value) ? this.value : (numerise(this.value.replace(/[^0-9.]/g, "")))' />`
+            <input id='miscbox${counter}' class='Input' />`
           generatedbox.addEventListener('change', () => { updateData() })
         container.appendChild(generatedbox);
+
+        // Adds handling to prevent non-numerical inputs
+        (document.getElementById(`miscbox${counter}`) as HTMLInputElement).addEventListener('input', (element) => {
+          const numerise = (target: string) => {
+            const parts = target.split('.')
+            if (parts.length > 2) {
+              return parts[0]+'.'+parts.slice(1).join('')
+            }
+            return parts[0]
+          }
+          (element.target as HTMLInputElement).value = /^\d*\.?\d*$/.test((element.target as HTMLInputElement).value) ? (element.target as HTMLInputElement).value : (numerise((element.target as HTMLInputElement).value.replace(/[^0-9.]/g, '')))
+        });
 
         // Updates display on delete
         (document.getElementById(`delete${counter}`) as HTMLElement).addEventListener('click', (element) => {
@@ -214,10 +232,12 @@ const App: React.FC = () => {
         </div>
         <SubHeader text='Monthly Finance Report' />
         <DisplayBox label='Financial Breakdown' datapoints={data} datalabels={categories} datacolours={colours} datasalary={salary} />
+        <Download />
         <div className='CreditBox'>
           <Credit content='Background from ' link='https://www.freepik.com/free-photo/white-paper-texture_1034616.htm' name='Freepik' align='L'/>
           <Credit content='Created by ' link='https://horizonzz.com' name="David O'Regan" align='R'/>
         </div>
+        <span id='copyright'>Copyright © 2024 HorizonZz - All Rights Reserved</span>
       </div>
       <PopUp id='NewPopUp' message='Please Enter Cost Name:' type='text' />
     </div>
