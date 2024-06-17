@@ -15,13 +15,13 @@ const COLOURS = [ '#C34A3C', '#CF6D62', '#DB938B', '#8D3CC3', '#B17AD6', '#3CB5C
 var counter = 0
 var amountSI = true
 
-const initialCategories = ['National Tax', 'Province/State Tax', 'Local Tax', '401K Contribution', 'IRA Contribution', 'Health Insurance', 'Social Security', 'Housing', 'Transport', 'Utility', 'Food', 'Toiletry', 'Internet', 'Phone', 'Savings', 'Investment', 'Free Spending', 'Extra Money']
+const initialCategories = ['National Tax', 'Province/State Tax', 'Local Tax', '401K Contribution', 'IRA Contribution', 'Health Insurance', 'Social Security', 'Housing', 'Transport', 'Utility', 'Food', 'Toiletry', 'Internet', 'Phone', 'Savings', 'Investment', 'Free Spending', 'Leftover']
 const initialData = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 const App: React.FC = () => {
   // dynamic variables
   const [data, setData] = useState<number[]>(initialData)
-  const [categories, setCategories] = useState<string[]>(initialCategories)
+  const [categories] = useState<string[]>(initialCategories)
   const [colours, setColours] = useState<string[]>(COLOURS)
   const [salary, setSalary] = useState<number[]>([0, 0])
 
@@ -44,7 +44,7 @@ const App: React.FC = () => {
       if (element.id !== 'salary' && newSalary[0] > 0) { // filter out salary category
         if (element.id.includes('_tax')) { // taxes
           if (element.id !== 'deduction_tax') { // filter out deductions
-            var tax = ((+element.value)/100)*(newSalary[0]-deduction401k-deductionTax)
+            let tax = ((+element.value)/100)*(newSalary[0]-deduction401k-deductionTax)
             if (deduction401k <= 0 && deductionIRA > 0) {
               tax = ((+element.value)/100)*(newSalary[0]-(deductionIRA*fedTaxRate)-deductionTax)
             }
@@ -53,7 +53,7 @@ const App: React.FC = () => {
           }
         }
         else if (element.id === 'socsecurity') { // social security
-          var socsec = ((+element.value)/100)*newSalary[0]
+          let socsec = ((+element.value)/100)*newSalary[0]
           newData.push(+socsec.toFixed(2))
           newSalary[1] -= socsec
         }
@@ -63,7 +63,7 @@ const App: React.FC = () => {
             newSalary[1] -= (+element.value)
           }
           else { // As a percent
-            const percent = (+(element.value)/100)*newSalary[0]
+            let percent = (+(element.value)/100)*newSalary[0]
             newData.push(+percent.toFixed(2))
             newSalary[1] -= (+percent)
           }
@@ -81,10 +81,10 @@ const App: React.FC = () => {
     // Display extra money
     newData.push(+newSalary[1].toFixed(2))
     if (newSalary[1] < 0) {
-      newColours.push('#E65050')
+      newColours.push('#E65050') // Red for negative
     }
     else {
-      newColours.push('#6AA84F')
+      newColours.push('#6AA84F') // Green for positive
     }
 
     // Set variables
@@ -165,7 +165,7 @@ const App: React.FC = () => {
 
         categories.pop()
         categories.push(input)
-        categories.push('Extra Money')
+        categories.push('Leftover')
       }
       (document.getElementById('NewPopUp') as HTMLInputElement).value = '';
       (document.getElementById('popupholder') as HTMLSelectElement).style.display = 'none'
