@@ -1,4 +1,4 @@
-# Monthly Finance Calculator
+# The Monthly Finance Calculator
 
 ### [https://finance.horizonzz.com](https://finance.horizonzz.com)
 
