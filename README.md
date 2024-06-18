@@ -4,7 +4,7 @@
 
 ## What does this program do?
 
-The Monthly Finance Calculator is a website that aims to make monthly budgeting simple, stressless, and free. Managing your money has never been easier!
+The Monthly Finance Calculator is a website that aims to make monthly budgeting simple, stressless, and free. No data is stored, provided much wanted privacy in the modern world. Managing your money has never been easier!
 
 This website is compatible with all device types.
 
