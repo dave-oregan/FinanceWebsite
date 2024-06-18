@@ -1,6 +1,6 @@
 # Monthly Finance Calculator
 
-#### [https://finance.horizonzz.com](https://finance.horizonzz.com)
+### [https://finance.horizonzz.com](https://finance.horizonzz.com)
 
 ## What does this program do?
 
