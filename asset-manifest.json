@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/FinanceWebsite/static/css/main.3f5d9035.css",
+    "main.js": "/FinanceWebsite/static/js/main.9690b4d7.js",
+    "static/js/453.b859d5e3.chunk.js": "/FinanceWebsite/static/js/453.b859d5e3.chunk.js",
+    "static/media/paper.jpg": "/FinanceWebsite/static/media/paper.2003255d86fed0bc5d68.jpg",
+    "static/media/Montserrat-VariableFont_wght.ttf": "/FinanceWebsite/static/media/Montserrat-VariableFont_wght.7e687123cd4528224ce5.ttf",
+    "static/media/Lekton-Regular.ttf": "/FinanceWebsite/static/media/Lekton-Regular.6c6e692aa8c6b75caadc.ttf",
+    "static/media/dollar.png": "/FinanceWebsite/static/media/dollar.8d17f5cc1e38a8b84333.png",
+    "static/media/percent.png": "/FinanceWebsite/static/media/percent.0bd7ce087bf597cec8ef.png",
+    "index.html": "/FinanceWebsite/index.html",
+    "main.3f5d9035.css.map": "/FinanceWebsite/static/css/main.3f5d9035.css.map",
+    "main.9690b4d7.js.map": "/FinanceWebsite/static/js/main.9690b4d7.js.map",
+    "453.b859d5e3.chunk.js.map": "/FinanceWebsite/static/js/453.b859d5e3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3f5d9035.css",
+    "static/js/main.9690b4d7.js"
+  ]
+}
