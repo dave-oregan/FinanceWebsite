@@ -323,3 +323,69 @@ html {
     transition-duration: 150ms;
     color: #C3ACD0;
 }
+
+/* Modifications for mobile and portrait experience */
+@media (orientation:portrait) {
+
+    #displayholder {
+        flex-direction: column-reverse;
+    }
+
+    #textdisplay {
+        width: 100% !important;
+        padding-right: 1em;
+        padding-bottom: 0;
+    }
+
+    #canvasdisplay {
+        padding: 0;
+        padding-right: 1em;
+        width: 100%;
+        flex-direction: column;
+        align-self: center;
+    }
+
+    #popup {
+        width: 80%;
+    }
+    
+    .CreditBox {
+        flex-direction: column-reverse;
+    }
+
+    .creditR {
+        margin: auto;
+        margin-bottom: 1.3em;
+    }
+    
+    .creditL {
+        margin: auto;
+    }
+    
+}
+
+/* Modifications for mobile and small screen experience */
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+
+    #textdisplay {
+        font-size: .9em;
+    }
+
+    #canvasdisplay {
+        padding-left: 1em;
+        padding-right: 2em;
+        width: 100%;
+    }
+}
+@media screen and (max-width: 615px) {
+
+    #textdisplay {
+        font-size: .9em;
+    }
+
+    #canvasdisplay {
+        padding-left: 1em;
+        padding-right: 2em;
+        width: 100%;
+    }
+}

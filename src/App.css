@@ -35,3 +35,23 @@
     width: 100%;
     text-align: center;
 }
+
+/* Modifications for mobile and small screen experience */
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+
+    .CentrePanel {
+        min-width: 100vw;
+        max-width: 100vw !important;
+    }
+
+    #copyright {
+        font-size: .8em;
+    }
+}
+@media screen and (max-width: 615px) {
+
+    .CentrePanel {
+        min-width: 100vw;
+        max-width: 100vw !important;
+    }
+}
