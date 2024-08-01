@@ -10,13 +10,13 @@ import NewBox from './components/NewBox'
 import PopUp from './components/PopUp'
 import Download from './components/Download'
 
-const COLOURS = [ '#C34A3C', '#CF6D62', '#DB938B', '#8D3CC3', '#B17AD6', '#3CB5C3', '#7ACDD6', '#E57D10', '#FF8B12', '#FFA241', '#FFB970', '#FFD0A0', '#004080', '#326699', '#DAA520', '#FBCC2E', '#B05A87' ]
+const COLOURS = ['#C34A3C', '#CF6D62', '#DB938B', '#8D3CC3', '#B17AD6', '#3CB5C3', '#7ACDD6', '#E57D10', '#FF8B12', '#FFA241', '#FFB970', '#FFD0A0', '#004080', '#326699', '#DAA520', '#FBCC2E', '#B05A87']
 
 var counter = 0
 var amountSI = true
 
 const initialCategories = ['National Tax', 'Province/State Tax', 'Local Tax', '401K Contribution', 'IRA Contribution', 'Health Insurance', 'Social Security', 'Housing', 'Transport', 'Utility', 'Food', 'Toiletry', 'Internet', 'Phone', 'Savings', 'Investment', 'Free Spending', 'Leftover']
-const initialData = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+const initialData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 const App: React.FC = () => {
   // dynamic variables
@@ -34,7 +34,7 @@ const App: React.FC = () => {
     if (deduction401k === 0) { deduction401k = 0 }
     var deductionIRA = +(document.getElementById('retirement_ira') as HTMLInputElement).value
     if (deductionIRA === 0) { deductionIRA = 0 }
-    var fedTaxRate = (+(document.getElementById('nation_tax') as HTMLInputElement).value)/100
+    var fedTaxRate = (+(document.getElementById('nation_tax') as HTMLInputElement).value) / 100
     if (fedTaxRate === 0) { fedTaxRate = 0 }
     var deductionTax = +(document.getElementById('deduction_tax') as HTMLInputElement).value
     if (deductionTax === 0) { deductionTax = 0 }
@@ -44,16 +44,16 @@ const App: React.FC = () => {
       if (element.id !== 'salary' && newSalary[0] > 0) { // filter out salary category
         if (element.id.includes('_tax')) { // taxes
           if (element.id !== 'deduction_tax') { // filter out deductions
-            let tax = ((+element.value)/100)*(newSalary[0]-deduction401k-deductionTax)
+            let tax = ((+element.value) / 100) * (newSalary[0] - deduction401k - deductionTax)
             if (deduction401k <= 0 && deductionIRA > 0) {
-              tax = ((+element.value)/100)*(newSalary[0]-(deductionIRA*fedTaxRate)-deductionTax)
+              tax = ((+element.value) / 100) * (newSalary[0] - (deductionIRA * fedTaxRate) - deductionTax)
             }
             newData.push(+tax.toFixed(2))
             newSalary[1] -= tax
           }
         }
         else if (element.id === 'socsecurity') { // social security
-          let socsec = ((+element.value)/100)*newSalary[0]
+          let socsec = ((+element.value) / 100) * newSalary[0]
           newData.push(+socsec.toFixed(2))
           newSalary[1] -= socsec
         }
@@ -63,7 +63,7 @@ const App: React.FC = () => {
             newSalary[1] -= (+element.value)
           }
           else { // As a percent
-            let percent = (+(element.value)/100)*newSalary[0]
+            let percent = (+(element.value) / 100) * newSalary[0]
             newData.push(+percent.toFixed(2))
             newSalary[1] -= (+percent)
           }
@@ -96,7 +96,7 @@ const App: React.FC = () => {
   useEffect(() => { // Calls after elements load
     // Hides popup on website start
     (document.getElementById('popupholder') as HTMLSelectElement).style.display = 'none';
-    
+
     // Toggles tax sections on or off based on user input
     (document.getElementById('tax_yn') as HTMLSelectElement).addEventListener('change', () => {
       const value = (document.getElementById('tax_yn') as HTMLSelectElement).value
@@ -132,16 +132,16 @@ const App: React.FC = () => {
       const input = (document.getElementById('NewPopUp') as HTMLInputElement).value;
       if (input.trim() !== '') {
         const container = document.getElementById('MiscHolder') as HTMLElement
-          counter++
-          var generatedbox = document.createElement('div')
-          generatedbox.className = 'miscbox_container'
-          generatedbox.innerHTML = `
+        counter++
+        var generatedbox = document.createElement('div')
+        generatedbox.className = 'miscbox_container'
+        generatedbox.innerHTML = `
             <div class='misc_label'>
               <span>${input}</span>
               <span id='delete${counter}' class='deleteBTN' onclick='this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)'>X</span>
             </div>
             <input id='miscbox${counter}' class='Input' />`
-          generatedbox.addEventListener('change', () => { updateData() })
+        generatedbox.addEventListener('change', () => { updateData() })
         container.appendChild(generatedbox);
 
         // Adds handling to prevent non-numerical inputs
@@ -149,7 +149,7 @@ const App: React.FC = () => {
           const numerise = (target: string) => {
             const parts = target.split('.')
             if (parts.length > 2) {
-              return parts[0]+'.'+parts.slice(1).join('')
+              return parts[0] + '.' + parts.slice(1).join('')
             }
             return parts[0]
           }
@@ -224,18 +224,18 @@ const App: React.FC = () => {
         <SelectBox id='percent_yn' label='Savings and Investments as an Amount or a Percent?' options={['Amount', 'Percent']} />
         <EntryBox id='savings' parent_class='sav_inv' label='Please Enter Ideal Monthly Savings:' />
         <EntryBox id='invest' parent_class='sav_inv' label='Please Enter Ideal Monthly Investments:' />
-        <EntryBox id='spending' parent_class='' label='Please Enter Ideal Monthly Free Spending:' /> 
+        <EntryBox id='spending' parent_class='' label='Please Enter Ideal Monthly Free Spending:' />
         <SubHeader text='Additional Costs' />
         <div id='MiscHolder'>
-        {/* NewBox will add elements here */}
-        <NewBox />
+          {/* NewBox will add elements here */}
+          <NewBox />
         </div>
         <SubHeader text='Monthly Finance Report' />
         <DisplayBox label='Financial Breakdown' datapoints={data} datalabels={categories} datacolours={colours} datasalary={salary} />
         <Download />
         <div className='CreditBox'>
-          <Credit content='Background from ' link='https://www.freepik.com/free-photo/white-paper-texture_1034616.htm' name='Freepik' align='L'/>
-          <Credit content='Created by ' link='https://horizonzz.com' name="David O'Regan" align='R'/>
+          <Credit content='Background from ' link='https://www.freepik.com/free-photo/white-paper-texture_1034616.htm' name='Freepik' align='L' />
+          <Credit content='Created by ' link='https://daveoregan.com' name="David O'Regan" align='R' />
         </div>
         <span id='copyright'>Copyright © 2024 HorizonZz - All Rights Reserved</span>
       </div>
